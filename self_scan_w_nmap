@@ -1,0 +1,19 @@
+import nmap
+
+nm = nmap.PortScanner()
+
+# Define target IP address or hostname
+target = "scanme.nmap.org"
+
+# Target for scan
+nm.scan(target)
+
+# Print scan results
+for host in nm.all_hosts():
+    print("Host: ", host)
+    print("State: ", nm[host].state())
+    for protos in nm[host].all_protocols():
+        print("Protocol: ", protos)
+        ports = nm[host][protos].keys()
+        for port in ports:
+            print("Port: ", port, "State: ", nm[host][protos][port]['state'])
